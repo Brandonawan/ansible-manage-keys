@@ -1,0 +1,17 @@
+---
+- name: Manage SSH Keys Playbook
+  hosts: all
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Set authorized keys taken from files
+      authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ lookup('file', item) }}"
+        state: present
+      with_fileglob:
+        - "keys/*.pub"
+      become_user: "{{ ansible_user }}"
+      vars:
+        ansible_become_pass: "{{ ansible_ssh_pass }}"
