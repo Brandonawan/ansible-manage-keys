@@ -16,10 +16,11 @@ pipeline {
         }
 
         stage('Run Ansible Playbook') {
+            environment {
+                PRIVATE_KEY = credentials('JENKINS_PRIVATE_KEY')
+            }
             steps {
-                withCredentials([file(credentialsId: 'JENKINS_PRIVATE_KEY', variable: 'PRIVATE_KEY')]) {
-                    sh "ansible-playbook -i hosts.ini --private-key=${PRIVATE_KEY} manage_ssh_keys.yml"
-                }
+                sh "ansible-playbook -i hosts.ini --private-key=${PRIVATE_KEY} manage_ssh_keys.yml"
             }
         }
     }
