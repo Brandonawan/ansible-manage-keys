@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_REPO_URL = 'https://github.com/Brandonawan/ansible-manage-keys.git'
-        GIT_CREDENTIALS = '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' // Jenkins credential ID for GitHub access token
+        GIT_CREDENTIALS = credentials('git-token') // Jenkins credential ID for GitHub access token
     }
 
     stages {
