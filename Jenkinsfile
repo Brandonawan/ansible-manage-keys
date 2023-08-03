@@ -4,7 +4,6 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/Brandonawan/ansible-manage-keys.git'
         GIT_CREDENTIALS = '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' // Jenkins credential ID for GitHub access token
-        PRIVATE_KEY = credentials('JENKINS_PRIVATE_KEY')
     }
 
     stages {
@@ -18,7 +17,9 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
-               sh "ansible-playbook -i hosts.ini --private-key=${PRIVATE_KEY} manage_ssh_keys.yml"
+                withCredentials([file(credentialsId: 'JENKINS_PRIVATE_KEY', variable: 'PRIVATE_KEY')]) {
+                    sh "ansible-playbook -i hosts.ini --private-key=${PRIVATE_KEY} manage_ssh_keys.yml"
+                }
             }
         }
     }
