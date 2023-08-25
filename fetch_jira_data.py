@@ -8,6 +8,10 @@ jira_url = os.environ.get('JIRA_URL')
 jira_username = os.environ.get('JIRA_USERNAME')
 jira_password = os.environ.get('JIRA_PASSWORD')
 
+print(f"JIRA_URL: {os.environ.get('JIRA_URL_CREDENTIAL_ID')}")
+print(f"JIRA_USERNAME: {os.environ.get('JIRA_USERNAME_CREDENTIAL_ID')}")
+print(f"JIRA_PASSWORD: {os.environ.get('JIRA_PASSWORD_CREDENTIAL_ID')}")
+
 # Set up Jira connection
 jira = JIRA(server=jira_url, basic_auth=(jira_username, jira_password))
 
